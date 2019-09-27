@@ -1,19 +1,15 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Container = styled.div`
-  
-`;
+export const Container = styled.div``;
 export const ListTodos = styled.ul`
   list-style: none;
-
-  
 `;
 export const ItemTodo = styled.li`
   padding: 10px;
   margin: 10px 0;
   border-radius: 4px;
   font-size: 14px;
-  color: #FFF;
+  color: #fff;
   background: #7159c1;
   display: flex;
   justify-content: space-between;
@@ -28,7 +24,7 @@ export const ItemTodo = styled.li`
     border: 0;
 
     > * {
-      animation:spin 0.8s linear infinite;
+      animation: spin 0.8s linear infinite;
     }
 
     @keyframes spin {
@@ -39,7 +35,6 @@ export const ItemTodo = styled.li`
       100% {
         transform: rotate(360deg);
       }
-
     }
   }
 `;

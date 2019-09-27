@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Header = styled.header`
   display: flex;
@@ -13,9 +13,9 @@ export const Button = styled.button`
   background: #7159c1;
   border: 0;
   border-radius: 4px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 
   &:hover {
-    opacity: 0.7
+    opacity: 0.7;
   }
 `;

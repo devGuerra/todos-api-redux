@@ -1,58 +1,32 @@
-import React, { Component } from 'react';
+import React from "react";
 import { MdCached } from "react-icons/md";
+import { connect } from "react-redux";
 
-import { Container, ListTodos, ItemTodo } from './styles';
-import { api } from '../../services/api'
+import { Container, ListTodos, ItemTodo } from "./styles";
 
-export default class List extends Component {
-  state = {
-    todos: [],
-    loading: false,
-  }
-
-  async componentDidMount() {
-    const request = await api.get('todos')
-
-    this.setState({
-      todos: request.data
-    })
-  }
-
-  async handleDelete(e) {
-    const { todos } = this.state
-    const id = e.target.id
-    this.setState({
-      loading: true
-    })
-
-    await api.delete(`todos/${id}`)
-
-    const newList = todos.filter(todo => {
-      return todo.id !== parseInt(id)
-    })
-
-    this.setState({
-      todos: newList,
-      loading: false
-    })
-  }
-
-  render() {
-    const { todos, loading } = this.state
-
-    return (
-      <Container>
-        <ListTodos>
-          {
-            todos.map(todo => (
-              <ItemTodo key={todo.id}>
-                <span>{todo.title}</span>
-                <button type='button' id={todo.id} disabled={loading} onClick={(e) => this.handleDelete(e)}>{loading ? <MdCached size={14} color="#FFF" /> : 'x'}</button>
-              </ItemTodo>
-            ))
-          }
-        </ListTodos>
-      </Container>
-    );
-  }
+function List({ add }) {
+  console.log(add);
+  return (
+    <Container>
+      <ListTodos>
+        {add.map(add => (
+          <ItemTodo key={Math.random()}>
+            <span>{add}</span>
+            <button
+              type="button"
+              id={add}
+              disabled={false}
+              onClick={e => this.handleDelete(e)}
+            >
+              {false ? <MdCached size={14} color="#FFF" /> : "x"}
+            </button>
+          </ItemTodo>
+        ))}
+      </ListTodos>
+    </Container>
+  );
 }
+
+export default connect(state => ({
+  add: state.add
+}))(List);

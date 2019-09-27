@@ -1,9 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-import { Header, Button } from './styles';
+import { Header, Button } from "./styles";
 
-export default function Components() {
+function HeaderComponent({ add }) {
   return (
     <Header>
       <Link to="/">
@@ -15,3 +16,6 @@ export default function Components() {
     </Header>
   );
 }
+export default connect(state => ({
+  add: state.add
+}))(HeaderComponent);

@@ -1,36 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { Container } from './styles';
-import { api } from '../../services/api'
+import { Container } from "./styles";
+// import { api } from '../../services/api'
 
-export default class Add extends Component {
+class Add extends Component {
   state = {
-    todo: ''
-  }
+    todo: ""
+  };
   handleChange(e) {
     this.setState({
       todo: e.target.value
-    })
+    });
   }
 
-  async addTodo() {
-    const { todo } = this.state
-    await api.post('/todos', {
-      title: todo,
-      userId: 1
-    })
+  addTodo = todo => {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: "ADD_TODO",
+      todo
+    });
 
     this.setState({
       todo: ""
-    })
-  }
+    });
+  };
   render() {
-    const { todo } = this.state
+    const { todo } = this.state;
     return (
       <Container>
-        <textarea onChange={(e) => this.handleChange(e)} type="text" value={todo} />
-        <button onClick={() => this.addTodo()} type="button">Gravar</button>
-      </Container >
+        <textarea
+          onChange={e => this.handleChange(e)}
+          type="text"
+          value={todo}
+        />
+        <button onClick={() => this.addTodo(todo)} type="button">
+          Gravar
+        </button>
+      </Container>
     );
   }
 }
+
+export default connect()(Add);
