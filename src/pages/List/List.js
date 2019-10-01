@@ -1,32 +1,50 @@
-import React from "react";
+import React, { Component } from "react";
 import { MdCached } from "react-icons/md";
 import { connect } from "react-redux";
 
+// import { api } from '../../services/api'
 import { Container, ListTodos, ItemTodo } from "./styles";
 
-function List({ add }) {
-  console.log(add);
-  return (
-    <Container>
-      <ListTodos>
-        {add.map(add => (
-          <ItemTodo key={Math.random()}>
-            <span>{add}</span>
-            <button
-              type="button"
-              id={add}
-              disabled={false}
-              onClick={e => this.handleDelete(e)}
-            >
-              {false ? <MdCached size={14} color="#FFF" /> : "x"}
-            </button>
-          </ItemTodo>
-        ))}
-      </ListTodos>
-    </Container>
-  );
+class List extends Component {
+  handleDelete = todo => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'REMOVE_TODO',
+      todo
+    })
+  }
+
+  render() {
+    const { todos } = this.props
+    return (
+      <Container>
+        <ListTodos>
+          {
+            todos.map((todo) => (
+              <ItemTodo key={todo.id} completed={todo.completed}>
+                <main>
+                  <span>{todo.value}</span>
+                  <button
+                    type="button"
+                    id={todo.id}
+                    disabled={false}
+                    onClick={e => this.handleDelete(e.target.id)}
+                  >
+                    {false ? <MdCached size={14} color="#FFF" /> : "x"}
+                  </button>
+                </main>
+
+              </ItemTodo>
+            ))
+          }
+        </ListTodos>
+      </Container>
+    );
+  }
 }
 
-export default connect(state => ({
-  add: state.add
-}))(List);
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+})
+
+export default connect(mapStateToProps)(List);

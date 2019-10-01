@@ -6,16 +6,28 @@ import { Container } from "./styles";
 
 class Add extends Component {
   state = {
-    todo: ""
+    title: '',
+    completed: false
+
   };
+
   handleChange(e) {
-    this.setState({
-      todo: e.target.value
-    });
+    if (e.target.type === 'textarea') {
+      this.setState({
+        title: e.target.value,
+      });
+    } else {
+      this.setState({
+        completed: e.target.checked,
+      });
+    }
   }
 
-  addTodo = todo => {
+  addTodo = () => {
     const { dispatch } = this.props;
+    const todo = this.state
+
+    if (!todo.title) return
 
     dispatch({
       type: "ADD_TODO",
@@ -23,19 +35,25 @@ class Add extends Component {
     });
 
     this.setState({
-      todo: ""
+      title: '',
+      completed: false
     });
   };
+
   render() {
-    const { todo } = this.state;
+    const { title, completed } = this.state
     return (
       <Container>
         <textarea
           onChange={e => this.handleChange(e)}
           type="text"
-          value={todo}
+          value={title}
         />
-        <button onClick={() => this.addTodo(todo)} type="button">
+        <div>
+          <input type="checkbox" value={completed} onChange={() => this.handleChange} />
+          <span>Completed</span>
+        </div>
+        <button onClick={() => this.addTodo()} type="button">
           Gravar
         </button>
       </Container>
@@ -44,3 +62,4 @@ class Add extends Component {
 }
 
 export default connect()(Add);
+

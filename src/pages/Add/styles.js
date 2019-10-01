@@ -22,4 +22,19 @@ export const Container = styled.div`
     padding: 5px 0;
     margin-top: 10px;
   }
+
+  div {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      margin-right: 5px;
+    }
+    span {
+      color: #fff;
+      font-weight: 400;
+    }
+  }
 `;
